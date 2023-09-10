@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { HashRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import './App.scss'
+// 导入页面
+import Login from './pages/Login'
+import Layout from './pages/Layout'
+import NotFound from './pages/NotFound'
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <div className='App'>
+        <Switch>
+          <Route path='/login' component={Login} />
+          <Route path='/layout'>
+            <Layout />
+          </Route>
+
+          {/* 重定向要在已有规则的后面 */}
+          <Redirect exact from='/' to='/login' />
+          {/* 404一定要写在最后 */}
+          <Route component={NotFound} />
+        </Switch>
+      </div>
+    </Router>
+  )
 }
 
-export default App;
+export default App
